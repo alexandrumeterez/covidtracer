@@ -1,6 +1,7 @@
 package com.example.covidtracer;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 

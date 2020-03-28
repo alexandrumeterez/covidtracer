@@ -5,4 +5,6 @@
     <string name="edit_surname">Prenume</string>
     <string name="edit_family_name">Nume</string>
     <string name="btn_next">Continua</string>
+    <string name="btn_finish">Finalizare</string>
+    <string name="disclaimer">Datele dumnevoastra vor fi accesate numai in cazul in care sunteti raportat bolnav</string>
 </resources>

@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".WorkActivity">
 
+
     <LinearLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/fragment_container">
-    </LinearLayout>
+        android:orientation="vertical">
 
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
