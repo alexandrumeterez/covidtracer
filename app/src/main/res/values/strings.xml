@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CovidTracer</string>
+    <string name="app_description">O aplicatie menita sa incetineasca epidemia de Covid19</string>
+    <string name="btn_register">Inregistrare</string>
+    <string name="edit_surname">Prenume</string>
+    <string name="edit_family_name">Nume</string>
+    <string name="btn_next">Continua</string>
 </resources>
