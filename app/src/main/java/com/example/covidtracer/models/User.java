@@ -5,6 +5,8 @@ public class User {
     public String surname;
     public String email;
     public String phone;
+    public String status;
+
 
     public User() {
 
@@ -42,10 +44,19 @@ public class User {
         this.phone = phone;
     }
 
-    public User(String familyName, String surname, String email, String phone) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public User(String familyName, String surname, String email, String phone, String status) {
         this.familyName = familyName;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
+        this.status = status;
     }
 }

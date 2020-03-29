@@ -27,6 +27,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.firebase:firebase-firestore:21.4.1'
     implementation 'com.android.support:multidex:1.0.3'
+    compile 'com.google.android.gms:play-services-nearby:17.0.0'
 
 
     implementation 'androidx.appcompat:appcompat:1.1.0'

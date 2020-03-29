@@ -1,6 +1,7 @@
 package com.example.covidtracer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -23,10 +24,12 @@ import java.util.UUID;
 
 public class SubmitFragment extends Fragment {
     private static final String TAG = "SubmitFragment";
+
     private String surname;
     private String familyName;
     private String email;
     private String phone;
+    private String status;
     private View view;
     private Button btnSubmit;
     private static String uniqueID = null;
@@ -48,10 +51,8 @@ public class SubmitFragment extends Fragment {
     }
 
     public SubmitFragment() {
-        // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static SubmitFragment newInstance() {
         SubmitFragment fragment = new SubmitFragment();
         return fragment;
@@ -67,6 +68,7 @@ public class SubmitFragment extends Fragment {
             familyName = bundle.getString("familyName");
             email = bundle.getString("email");
             phone = bundle.getString("phone");
+            status = bundle.getString("status");
         }
     }
 
@@ -86,23 +88,36 @@ public class SubmitFragment extends Fragment {
         TextView textFamilyName = view.findViewById(R.id.textPreviewFamilyName);
         TextView textEmail = view.findViewById(R.id.textPreviewEmail);
         TextView textPhone = view.findViewById(R.id.textPreviewPhone);
-
+        TextView textStatus = view.findViewById(R.id.textPreviewStatus);
 
         textSurname.setText(surname, TextView.BufferType.EDITABLE);
         textFamilyName.setText(familyName, TextView.BufferType.EDITABLE);
         textEmail.setText(email, TextView.BufferType.EDITABLE);
         textPhone.setText(phone, TextView.BufferType.EDITABLE);
-
+        textStatus.setText(status, TextView.BufferType.EDITABLE);
         btnSubmit = view.findViewById(R.id.btnFinish);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User(familyName, surname, email, phone);
+                User user = new User(familyName, surname, email, phone, status);
                 FirebaseDatabaseHelper.getInstance().addUser(id(getContext()), user, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void InsertSuccess() {
                         Log.d(TAG, "Success");
                         Toast.makeText(getActivity(), "Success", Toast.LENGTH_LONG).show();
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(getString(R.string.registered), true);
+                        editor.putString(getString(R.string.familyName), familyName);
+                        editor.putString(getString(R.string.surname), surname);
+                        editor.putString(getString(R.string.email), email);
+                        editor.putString(getString(R.string.phone), phone);
+                        editor.putString(getString(R.string.status), status);
+                        editor.commit();
+
+                        Intent intent = new Intent(getContext(), LoggedInActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
 
                     @Override

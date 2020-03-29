@@ -4,7 +4,16 @@
     <string name="btn_register">Inregistrare</string>
     <string name="edit_surname">Prenume</string>
     <string name="edit_family_name">Nume</string>
+    <string name="edit_email">Email</string>
+    <string name="edit_phone">Telefon</string>
     <string name="btn_next">Continua</string>
     <string name="btn_finish">Finalizare</string>
     <string name="disclaimer">Datele dumnevoastra vor fi accesate numai in cazul in care sunteti raportat bolnav</string>
+    <string name="status">Status</string>
+    <string name="preference_file_key">com.example.myapp.PREFKEY</string>
+    <string name="registered">registered</string>
+    <string name="familyName">familyName</string>
+    <string name="surname">surname</string>
+    <string name="email">email</string>
+    <string name="phone">phone</string>
 </resources>
