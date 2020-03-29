@@ -71,6 +71,13 @@ public class MessageService extends Service {
         return START_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Nearby.getMessagesClient(this).unpublish(message);
+        Nearby.getMessagesClient(this).unsubscribe(messageListener);
+    }
+
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(

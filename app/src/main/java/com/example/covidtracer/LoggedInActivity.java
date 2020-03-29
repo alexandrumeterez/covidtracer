@@ -42,4 +42,9 @@ public class LoggedInActivity extends AppCompatActivity {
         startService(new Intent(this, MessageService.class));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, MessageService.class));
+    }
 }
