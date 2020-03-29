@@ -25,7 +25,7 @@ public class LoggedInActivity extends AppCompatActivity {
         String strCurrentFamilyName = sharedPreferences.getString(getString(R.string.familyName), "None");
         String strCurrentSurname = sharedPreferences.getString(getString(R.string.surname), "None");
         String strCurrentStatus = sharedPreferences.getString(getString(R.string.status), "None");
-
+        
         currentFamilyName.setText(strCurrentFamilyName);
         currentSurname.setText(strCurrentSurname);
         currentStatus.setText(strCurrentStatus);
