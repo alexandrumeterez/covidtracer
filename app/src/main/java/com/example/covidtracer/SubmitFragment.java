@@ -19,6 +19,10 @@ import android.widget.Toast;
 
 import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 import com.example.covidtracer.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.UUID;
 
@@ -32,6 +36,7 @@ public class SubmitFragment extends Fragment {
     private String status;
     private View view;
     private Button btnSubmit;
+
     private static String uniqueID = null;
     private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
 
@@ -89,6 +94,24 @@ public class SubmitFragment extends Fragment {
         TextView textEmail = view.findViewById(R.id.textPreviewEmail);
         TextView textPhone = view.findViewById(R.id.textPreviewPhone);
         TextView textStatus = view.findViewById(R.id.textPreviewStatus);
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        Log.d(TAG, token);
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(getString(R.string.token), token);
+                        editor.commit();
+                    }
+                });
 
         textSurname.setText(surname, TextView.BufferType.EDITABLE);
         textFamilyName.setText(familyName, TextView.BufferType.EDITABLE);
@@ -113,9 +136,10 @@ public class SubmitFragment extends Fragment {
                         editor.putString(getString(R.string.email), email);
                         editor.putString(getString(R.string.phone), phone);
                         editor.putString(getString(R.string.status), status);
-                        Log.d(TAG, id(getContext()));
                         editor.putString(getString(R.string.UID), id(getContext()));
                         editor.commit();
+
+
                         Intent intent = new Intent(getContext(), LoggedInActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

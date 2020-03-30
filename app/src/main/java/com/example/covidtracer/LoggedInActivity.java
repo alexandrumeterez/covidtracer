@@ -1,5 +1,6 @@
 package com.example.covidtracer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,10 @@ import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class LoggedInActivity extends AppCompatActivity {
     private TextView currentFamilyName;
@@ -43,6 +48,20 @@ public class LoggedInActivity extends AppCompatActivity {
         String strCurrentSurname = sharedPreferences.getString(getString(R.string.surname), "None");
         String strCurrentStatus = sharedPreferences.getString(getString(R.string.status), "None");
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
+        String token = sharedPreferences.getString(getString(R.string.token), "None");
+        FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void Success() {
+                Log.d(TAG, "Saved token");
+            }
+
+            @Override
+            public void Fail() {
+                Log.d(TAG, "Failed to save token");
+            }
+        });
+
+
         currentFamilyName.setText(strCurrentFamilyName);
         currentSurname.setText(strCurrentSurname);
         currentStatus.setText(strCurrentStatus);
@@ -76,11 +95,13 @@ public class LoggedInActivity extends AppCompatActivity {
         });
 
         startService(new Intent(this, MessageService.class));
+        startService(new Intent(this, CustomFirebaseMessagingService.class));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         stopService(new Intent(this, MessageService.class));
+        stopService(new Intent(this, CustomFirebaseMessagingService.class));
     }
 }

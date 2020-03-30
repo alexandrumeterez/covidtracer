@@ -104,4 +104,24 @@ public class FirebaseDatabaseHelper {
                     }
                 });
     }
+
+    public void updateDeviceToken(String myUserID, String deviceToken, final DataStatus status) {
+        DocumentReference userToUpdate = usersCollection.document(myUserID);
+        Map<String, Object> updatedFields = new HashMap<>();
+        updatedFields.put("token", deviceToken);
+        userToUpdate.update(updatedFields)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        status.Success();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        status.Fail();
+                    }
+                });
+
+    }
 }

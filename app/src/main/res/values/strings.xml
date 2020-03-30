@@ -17,4 +17,6 @@
     <string name="email">email</string>
     <string name="phone">phone</string>
     <string name="UID">UID</string>
+    <string name="token">token</string>
+    <string name="default_notification_channel_id">MYCHANNEL</string>
 </resources>
