@@ -102,7 +102,7 @@ public class SubmitFragment extends Fragment {
                 User user = new User(familyName, surname, email, phone, status);
                 FirebaseDatabaseHelper.getInstance().addUser(id(getContext()), user, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
-                    public void InsertSuccess() {
+                    public void Success() {
                         Log.d(TAG, "Success");
                         Toast.makeText(getActivity(), "Success", Toast.LENGTH_LONG).show();
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -122,7 +122,7 @@ public class SubmitFragment extends Fragment {
                     }
 
                     @Override
-                    public void InsertFail() {
+                    public void Fail() {
                         Log.d(TAG, "Failed");
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_LONG).show();
                     }

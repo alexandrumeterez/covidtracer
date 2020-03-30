@@ -52,13 +52,13 @@ public class MessageService extends Service {
                 Meet meet = new Meet(FieldValue.serverTimestamp(), FieldValue.serverTimestamp(), "ongoing");
                 FirebaseDatabaseHelper.getInstance().addMeeting(myUserUID, metUserUID, meet, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
-                    public void InsertSuccess() {
+                    public void Success() {
                         Log.d(TAG, "Inserted user");
                         Toast.makeText(context, "Inserted meeting", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
-                    public void InsertFail() {
+                    public void Fail() {
                         Log.d(TAG, "Failed inserting user");
                         Toast.makeText(context, "Failed to insert meeting", Toast.LENGTH_LONG).show();
 
@@ -73,13 +73,13 @@ public class MessageService extends Service {
                 Log.d(TAG, "Lost sight of user: " + metUserUID);
                 FirebaseDatabaseHelper.getInstance().updateMeetingEnding(myUserUID, metUserUID, FieldValue.serverTimestamp(), new FirebaseDatabaseHelper.DataStatus() {
                     @Override
-                    public void InsertSuccess() {
+                    public void Success() {
                         Log.d(TAG, "Updated meeting");
                         Toast.makeText(context, "Updated meeting", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
-                    public void InsertFail() {
+                    public void Fail() {
                         Log.d(TAG, "Failed to update meeting");
                         Toast.makeText(context, "Failed to update meeting", Toast.LENGTH_LONG).show();
 

@@ -29,9 +29,9 @@ public class FirebaseDatabaseHelper {
     }
 
     public interface DataStatus {
-        void InsertSuccess();
+        void Success();
 
-        void InsertFail();
+        void Fail();
     }
 
     public void addUser(String id, User user, final DataStatus status) {
@@ -39,13 +39,13 @@ public class FirebaseDatabaseHelper {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        status.InsertSuccess();
+                        status.Success();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        status.InsertFail();
+                        status.Fail();
                     }
                 });
     }
@@ -55,13 +55,13 @@ public class FirebaseDatabaseHelper {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        status.InsertSuccess();
+                        status.Success();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        status.InsertFail();
+                        status.Fail();
                     }
                 });
     }
@@ -75,13 +75,32 @@ public class FirebaseDatabaseHelper {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        status.InsertSuccess();
+                        status.Success();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        status.InsertFail();
+                        status.Fail();
+                    }
+                });
+    }
+
+    public void updateUserStatus(String myUserID, String newStatus, final DataStatus status) {
+        DocumentReference userToUpdate = usersCollection.document(myUserID);
+        Map<String, Object> updatedFields = new HashMap<>();
+        updatedFields.put("status", newStatus);
+        userToUpdate.update(updatedFields)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        status.Success();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        status.Fail();
                     }
                 });
     }
