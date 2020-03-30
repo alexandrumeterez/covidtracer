@@ -5,7 +5,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -14,14 +16,20 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+import com.example.covidtracer.models.Meet;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
+import com.google.firebase.firestore.FieldValue;
 
 public class MessageService extends Service {
+    private final String TAG = "MessageService";
     public static final String CHANNEL_ID = "ForegroundServiceChannel";
     private MessageListener messageListener;
-    private Message message;
+    private Message myUserUIDMessage;
+    private String myUserUID;
+    private Context context = this;
 
     @Nullable
     @Override
@@ -32,28 +40,62 @@ public class MessageService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        SharedPreferences prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        myUserUID = prefs.getString(getString(R.string.UID), "None");
 
+        myUserUIDMessage = new Message(myUserUID.getBytes());
         messageListener = new MessageListener() {
             @Override
             public void onFound(Message message) {
-                Log.d("MessageService", "Found message: " + new String(message.getContent()));
+                String metUserUID = new String(message.getContent());
+                Log.d(TAG, "Found user: " + metUserUID);
+                Meet meet = new Meet(FieldValue.serverTimestamp(), FieldValue.serverTimestamp(), "ongoing");
+                FirebaseDatabaseHelper.getInstance().addMeeting(myUserUID, metUserUID, meet, new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void InsertSuccess() {
+                        Log.d(TAG, "Inserted user");
+                        Toast.makeText(context, "Inserted meeting", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void InsertFail() {
+                        Log.d(TAG, "Failed inserting user");
+                        Toast.makeText(context, "Failed to insert meeting", Toast.LENGTH_LONG).show();
+
+                    }
+                });
             }
 
             @Override
             public void onLost(Message message) {
-                Log.d("MessageService", "Lost sight of message: " + new String(message.getContent()));
+                Log.d(TAG, "Closed application");
+                String metUserUID = new String(message.getContent());
+                Log.d(TAG, "Lost sight of user: " + metUserUID);
+                FirebaseDatabaseHelper.getInstance().updateMeetingEnding(myUserUID, metUserUID, FieldValue.serverTimestamp(), new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void InsertSuccess() {
+                        Log.d(TAG, "Updated meeting");
+                        Toast.makeText(context, "Updated meeting", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void InsertFail() {
+                        Log.d(TAG, "Failed to update meeting");
+                        Toast.makeText(context, "Failed to update meeting", Toast.LENGTH_LONG).show();
+
+                    }
+                });
             }
         };
-        message = new Message("Hello world".getBytes());
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.d("Service", "exist aici");
-        Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Starting tracking", Toast.LENGTH_LONG).show();
 
-        Nearby.getMessagesClient(this).publish(message);
+        Nearby.getMessagesClient(this).publish(myUserUIDMessage);
         Nearby.getMessagesClient(this).subscribe(messageListener);
 
         createNotificationChannel();
@@ -66,15 +108,13 @@ public class MessageService extends Service {
                 .setContentIntent(pendingIntent)
                 .build();
         startForeground(1, notification);
-        //do heavy work on a background thread
-        //stopSelf();
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Nearby.getMessagesClient(this).unpublish(message);
+        Nearby.getMessagesClient(this).unpublish(myUserUIDMessage);
         Nearby.getMessagesClient(this).unsubscribe(messageListener);
     }
 

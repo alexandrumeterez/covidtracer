@@ -1,18 +1,27 @@
 package com.example.covidtracer.dbhelpers;
+
 import androidx.annotation.NonNull;
+
+import com.example.covidtracer.models.Meet;
 import com.example.covidtracer.models.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FirebaseDatabaseHelper {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static FirebaseDatabaseHelper firebaseDatabaseHelper = new FirebaseDatabaseHelper();
-    private CollectionReference usersCollection;
+    private CollectionReference usersCollection, meetingsCollection;
 
     private FirebaseDatabaseHelper() {
         usersCollection = db.collection("users");
+        meetingsCollection = db.collection("users_meetings");
     }
 
     public static FirebaseDatabaseHelper getInstance() {
@@ -41,4 +50,39 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
+    public void addMeeting(String myUserUID, String metUserUID, Meet meet, final DataStatus status) {
+        meetingsCollection.document(myUserUID).collection("meetings").document(metUserUID).set(meet)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        status.InsertSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        status.InsertFail();
+                    }
+                });
+    }
+
+    public void updateMeetingEnding(String myUserID, String metUserUID, FieldValue endingTimestamp, final DataStatus status) {
+        DocumentReference meetToUpdate = meetingsCollection.document(myUserID).collection("meetings").document(metUserUID);
+        Map<String, Object> updatedFields = new HashMap<>();
+        updatedFields.put("lostTimestamp", endingTimestamp);
+        updatedFields.put("status", "ended");
+        meetToUpdate.update(updatedFields)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        status.InsertSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        status.InsertFail();
+                    }
+                });
+    }
 }

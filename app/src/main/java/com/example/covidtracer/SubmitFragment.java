@@ -113,8 +113,9 @@ public class SubmitFragment extends Fragment {
                         editor.putString(getString(R.string.email), email);
                         editor.putString(getString(R.string.phone), phone);
                         editor.putString(getString(R.string.status), status);
+                        Log.d(TAG, id(getContext()));
+                        editor.putString(getString(R.string.UID), id(getContext()));
                         editor.commit();
-
                         Intent intent = new Intent(getContext(), LoggedInActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

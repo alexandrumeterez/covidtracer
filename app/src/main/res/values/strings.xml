@@ -16,4 +16,5 @@
     <string name="surname">surname</string>
     <string name="email">email</string>
     <string name="phone">phone</string>
+    <string name="UID">UID</string>
 </resources>
