@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".MessageService"
+            android:name=".NearbyTrackingService"
             android:enabled="true" />
         <service
             android:name=".CustomFirebaseMessagingService"
