@@ -18,6 +18,7 @@ import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 import com.example.covidtracer.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -51,10 +52,9 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     private ViewGroup mPhoneNumberViews;
-    private ViewGroup mSignedInViews;
 
-    private EditText mPhoneNumberField;
-    private EditText mVerificationField;
+    private TextInputLayout mPhoneNumberField;
+    private TextInputLayout mVerificationField;
 
     private Button mStartButton;
     private Button mVerifyButton;
@@ -72,7 +72,6 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
         }
 
         mPhoneNumberViews = findViewById(R.id.phoneAuthFields);
-        mSignedInViews = findViewById(R.id.signedInButtons);
 
 
         mPhoneNumberField = findViewById(R.id.fieldPhoneNumber);
@@ -156,7 +155,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
         updateUI(currentUser);
 
         if (mVerificationInProgress && validatePhoneNumber()) {
-            startPhoneNumberVerification(mPhoneNumberField.getText().toString());
+            startPhoneNumberVerification("+40" + mPhoneNumberField.getEditText().getText().toString());
         }
     }
 
@@ -268,16 +267,16 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
         if (user == null) {
             // Signed out
             mPhoneNumberViews.setVisibility(View.VISIBLE);
-            mSignedInViews.setVisibility(View.GONE);
         } else {
-            final User newUser = new User(mPhoneNumberField.getText().toString(), "Sanatos");
+            final String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
+            final User newUser = new User(phoneNumber, "Sanatos");
             FirebaseDatabaseHelper.getInstance().addUser(newUser, this, new FirebaseDatabaseHelper.DataStatus() {
                 @Override
                 public void Success() {
                     Log.d(TAG, "Added new user");
                     final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(getString(R.string.phone), mPhoneNumberField.getText().toString());
+                    editor.putString(getString(R.string.phone), phoneNumber);
                     editor.putString(getString(R.string.status), "Sanatos");
                     editor.putBoolean(getString(R.string.registered), true);
                     editor.commit();
@@ -295,7 +294,8 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
     }
 
     private boolean validatePhoneNumber() {
-        String phoneNumber = mPhoneNumberField.getText().toString();
+
+        String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
         if (TextUtils.isEmpty(phoneNumber)) {
             mPhoneNumberField.setError("Invalid phone number.");
             return false;
@@ -323,10 +323,10 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
                 if (!validatePhoneNumber()) {
                     return;
                 }
-                startPhoneNumberVerification(mPhoneNumberField.getText().toString());
+                startPhoneNumberVerification("+40" + mPhoneNumberField.getEditText().getText().toString());
                 break;
             case R.id.buttonVerifyPhone:
-                String code = mVerificationField.getText().toString();
+                String code = mVerificationField.getEditText().getText().toString();
                 if (TextUtils.isEmpty(code)) {
                     mVerificationField.setError("Cannot be empty.");
                     return;
@@ -334,7 +334,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
                 verifyPhoneNumberWithCode(mVerificationId, code);
                 break;
             case R.id.buttonResend:
-                resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
+                resendVerificationCode("+40" + mPhoneNumberField.getEditText().getText().toString(), mResendToken);
                 break;
         }
     }

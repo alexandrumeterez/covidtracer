@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     tools:context=".DescriptionActivity">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_width="340dp"
         android:layout_height="152dp"
         android:layout_marginTop="28dp"
+        android:fontFamily="serif"
         android:gravity="start"
         android:padding="4dp"
         android:text="@string/app_description"
@@ -29,6 +31,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="48dp"
+        android:fontFamily="serif"
         android:text="@string/text_permissions"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,14 +39,15 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="359dp"
-        android:layout_height="45dp"
+        android:layout_width="355dp"
+        android:layout_height="58dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
         android:drawableStart="@drawable/ic_bluetooth"
         android:drawableLeft="@drawable/ic_bluetooth"
         android:drawablePadding="10sp"
+        android:fontFamily="serif"
         android:text="@string/text_permissions_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -58,6 +62,7 @@
         android:drawableStart="@drawable/ic_phone"
         android:drawableLeft="@drawable/ic_phone"
         android:drawablePadding="10sp"
+        android:fontFamily="serif"
         android:text="@string/text_permissions_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -68,9 +73,11 @@
         android:layout_height="54dp"
         android:layout_marginBottom="32dp"
         android:layout_weight="1"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/btn_register"
         android:textSize="18sp"
+        android:theme="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
