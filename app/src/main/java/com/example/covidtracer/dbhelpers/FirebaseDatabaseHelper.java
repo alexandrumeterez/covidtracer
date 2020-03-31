@@ -1,7 +1,12 @@
 package com.example.covidtracer.dbhelpers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 
+import com.example.covidtracer.LoggedInActivity;
+import com.example.covidtracer.R;
 import com.example.covidtracer.models.Meet;
 import com.example.covidtracer.models.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,11 +39,16 @@ public class FirebaseDatabaseHelper {
         void Fail();
     }
 
-    public void addUser(String id, User user, final DataStatus status) {
-        usersCollection.document(id).set(user)
+    public void addUser(User user, final Context context, final DataStatus status) {
+        final DocumentReference newUserRef = usersCollection.document();
+        newUserRef.set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(context.getString(R.string.UID), newUserRef.getId());
+                        editor.commit();
                         status.Success();
                     }
                 })

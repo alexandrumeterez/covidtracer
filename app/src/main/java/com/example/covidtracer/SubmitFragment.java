@@ -37,24 +37,6 @@ public class SubmitFragment extends Fragment {
     private View view;
     private Button btnSubmit;
 
-    private static String uniqueID = null;
-    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
-
-    public synchronized static String id(Context context) {
-        if (uniqueID == null) {
-            SharedPreferences sharedPrefs = context.getSharedPreferences(
-                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
-            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
-            if (uniqueID == null) {
-                uniqueID = UUID.randomUUID().toString();
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                editor.putString(PREF_UNIQUE_ID, uniqueID);
-                editor.commit();
-            }
-        }
-        return uniqueID;
-    }
-
     public SubmitFragment() {
     }
 
@@ -119,16 +101,17 @@ public class SubmitFragment extends Fragment {
         textPhone.setText(phone, TextView.BufferType.EDITABLE);
         textStatus.setText(status, TextView.BufferType.EDITABLE);
         btnSubmit = view.findViewById(R.id.btnFinish);
+        final SharedPreferences sharedPreferences = getContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User user = new User(familyName, surname, email, phone, status);
-                FirebaseDatabaseHelper.getInstance().addUser(id(getContext()), user, new FirebaseDatabaseHelper.DataStatus() {
+                FirebaseDatabaseHelper.getInstance().addUser(user, getContext(), new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
                         Log.d(TAG, "Success");
                         Toast.makeText(getActivity(), "Success", Toast.LENGTH_LONG).show();
-                        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(getString(R.string.registered), true);
                         editor.putString(getString(R.string.familyName), familyName);
@@ -136,7 +119,6 @@ public class SubmitFragment extends Fragment {
                         editor.putString(getString(R.string.email), email);
                         editor.putString(getString(R.string.phone), phone);
                         editor.putString(getString(R.string.status), status);
-                        editor.putString(getString(R.string.UID), id(getContext()));
                         editor.commit();
 
 

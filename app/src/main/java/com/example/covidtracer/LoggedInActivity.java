@@ -1,10 +1,8 @@
 package com.example.covidtracer;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,18 +10,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
-import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 public class LoggedInActivity extends AppCompatActivity {
     private TextView currentFamilyName;
@@ -94,14 +86,14 @@ public class LoggedInActivity extends AppCompatActivity {
             }
         });
 
-        startService(new Intent(this, MessageService.class));
+        startService(new Intent(this, NearbyTrackingService.class));
         startService(new Intent(this, CustomFirebaseMessagingService.class));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(new Intent(this, MessageService.class));
+        stopService(new Intent(this, NearbyTrackingService.class));
         stopService(new Intent(this, CustomFirebaseMessagingService.class));
     }
 }

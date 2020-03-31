@@ -23,7 +23,7 @@ import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 import com.google.firebase.firestore.FieldValue;
 
-public class MessageService extends Service {
+public class NearbyTrackingService extends Service {
     private final String TAG = "MessageService";
     public static final String CHANNEL_ID = "ForegroundServiceChannel";
     private MessageListener messageListener;
