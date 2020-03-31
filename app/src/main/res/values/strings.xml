@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CovidTracer</string>
-    <string name="app_description">O aplicatie menita sa incetineasca epidemia de Covid19</string>
+    <string name="app_description">Cu totii dorim sa ne intoarcem la viata noastra de zi cu zi. Lasand aceasta aplicatie sa ruleze pe fundal,
+    veti putea afla momentul in care ati intrat in contact cu cineva bolnav, putand astfel sa luati masuri.</string>
     <string name="btn_register">Inregistrare</string>
     <string name="edit_surname">Prenume</string>
     <string name="edit_family_name">Nume</string>
@@ -19,4 +20,7 @@
     <string name="UID">UID</string>
     <string name="token">token</string>
     <string name="default_notification_channel_id">MYCHANNEL</string>
+    <string name="text_permissions">Inregistrandu-va, va dati acordul pentru:</string>
+    <string name="text_permissions_1">Monitorizarea si stocarea persoanelor cu care intrati in contact (identitatea ramane necunoscuta)</string>
+    <string name="text_permissions_2">Stocarea numarului de telefon</string>
 </resources>

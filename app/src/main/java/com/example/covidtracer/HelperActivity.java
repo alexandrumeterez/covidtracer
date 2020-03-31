@@ -19,7 +19,7 @@ public class HelperActivity extends AppCompatActivity {
         if (isRegistered) {
             intent = new Intent(this, LoggedInActivity.class);
         } else {
-            intent = new Intent(this, MainActivity.class);
+            intent = new Intent(this, DescriptionActivity.class);
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
