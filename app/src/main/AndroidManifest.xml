@@ -25,7 +25,7 @@
         </service>
 
         <activity android:name=".LoggedInActivity" />
-        <activity android:name=".WorkActivity" />
+        <activity android:name=".PhoneRegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".HelperActivity">
             <intent-filter>

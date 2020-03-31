@@ -8,29 +8,11 @@
 
 
     <TextView
-        android:id="@+id/textCurrentFamilyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textCurrentSurname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCurrentFamilyName" />
-
-    <TextView
         android:id="@+id/textCurrentStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCurrentSurname" />
+        app:layout_constraintTop_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

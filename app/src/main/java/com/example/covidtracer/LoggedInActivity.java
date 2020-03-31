@@ -31,14 +31,9 @@ public class LoggedInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in);
 
-        currentFamilyName = findViewById(R.id.textCurrentFamilyName);
-        currentSurname = findViewById(R.id.textCurrentSurname);
         currentStatus = findViewById(R.id.textCurrentStatus);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String strCurrentFamilyName = sharedPreferences.getString(getString(R.string.familyName), "None");
-        String strCurrentSurname = sharedPreferences.getString(getString(R.string.surname), "None");
-        String strCurrentStatus = sharedPreferences.getString(getString(R.string.status), "None");
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
@@ -52,12 +47,6 @@ public class LoggedInActivity extends AppCompatActivity {
                 Log.d(TAG, "Failed to save token");
             }
         });
-
-
-        currentFamilyName.setText(strCurrentFamilyName);
-        currentSurname.setText(strCurrentSurname);
-        currentStatus.setText(strCurrentStatus);
-
         currentStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
