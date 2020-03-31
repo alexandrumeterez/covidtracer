@@ -14,16 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
-import com.google.android.gms.nearby.messages.Message;
-import com.google.android.gms.nearby.messages.MessageListener;
 
 public class LoggedInActivity extends AppCompatActivity {
-    private TextView currentFamilyName;
-    private TextView currentSurname;
     private TextView currentStatus;
-    private MessageListener mMessageListener;
     private String TAG = "LoggedInActivity";
-    private Message mMessage;
     private final String[] statuses = {"Sanatos", "Autoizolat", "Diagnosticat"};
 
     @Override
