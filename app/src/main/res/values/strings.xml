@@ -23,4 +23,6 @@
     <string name="text_permissions">Inregistrandu-va, va dati acordul pentru:</string>
     <string name="text_permissions_1">Monitorizarea si stocarea persoanelor cu care intrati in contact (identitatea ramane necunoscuta)</string>
     <string name="text_permissions_2">Stocarea numarului de telefon</string>
+    <string name="phone_desc">Introduceti numarul de telefon. Veti primi prin SMS un cod unic, pe care va trebui sa il introduceti in casuta de mai jos:</string>
+    <string name="code_desc">Introduceti codul primit prin SMS:</string>
 </resources>

@@ -51,7 +51,6 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-    private ViewGroup mPhoneNumberViews;
 
     private TextInputLayout mPhoneNumberField;
     private TextInputLayout mVerificationField;
@@ -70,8 +69,6 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
-
-        mPhoneNumberViews = findViewById(R.id.phoneAuthFields);
 
 
         mPhoneNumberField = findViewById(R.id.fieldPhoneNumber);
@@ -264,10 +261,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
                 break;
         }
 
-        if (user == null) {
-            // Signed out
-            mPhoneNumberViews.setVisibility(View.VISIBLE);
-        } else {
+        if (user != null) {
             final String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
             final User newUser = new User(phoneNumber, "Sanatos");
             FirebaseDatabaseHelper.getInstance().addUser(newUser, this, new FirebaseDatabaseHelper.DataStatus() {
