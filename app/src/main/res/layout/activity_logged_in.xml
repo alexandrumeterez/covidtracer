@@ -1,63 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="3"
-    android:orientation="vertical"
-    tools:context=".LoggedInActivity">
+    android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/textTracking"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:padding="32dp"
-        android:text="Aplicatia va urmareste persoanele cu care intrati in contact"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        tools:context=".LoggedInActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
 
-        <NumberPicker
-            android:id="@+id/pickerHealthStatus"
+        <TextView
+            android:id="@+id/textTracking"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_weight="1"
-            android:padding="32dp"
-
-            />
-
-        <Button
-            android:id="@+id/btnUpdateHealthStatus"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_margin="32dp"
-            android:text="Trimite"
-            app:cornerRadius="8dp" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:visibility="invisible"/>
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:padding="32dp"
+            android:text="Aplicatia va urmareste persoanele cu care intrati in contact"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <NumberPicker
+                android:id="@+id/pickerHealthStatus"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:padding="32dp"
+
+                />
+
+            <Button
+                android:id="@+id/btnUpdateHealthStatus"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_margin="32dp"
+                android:text="Trimite"
+                app:cornerRadius="8dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="32dp"
+            android:textSize="32sp" />
+
     </LinearLayout>
-
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:padding="32dp"
-        android:textSize="32sp" />
-
-</LinearLayout>
+</ScrollView>
