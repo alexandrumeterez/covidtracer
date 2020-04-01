@@ -40,7 +40,12 @@ public class LoggedInActivity extends AppCompatActivity {
         final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
-
+        String currentStatus = sharedPreferences.getString(getString(R.string.status), "None");
+        if (currentStatus.equals(statuses[picker.getValue()])) {
+            button.setEnabled(false);
+        } else {
+            button.setEnabled(true);
+        }
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void Success() {
