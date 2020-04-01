@@ -16,3 +16,4 @@ google-services.json
 gradle.properties
 node_modules/
 key.json
+release/

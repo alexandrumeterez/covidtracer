@@ -14,16 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
-import com.google.android.gms.nearby.messages.Message;
-import com.google.android.gms.nearby.messages.MessageListener;
 
 public class LoggedInActivity extends AppCompatActivity {
-    private TextView currentFamilyName;
-    private TextView currentSurname;
     private TextView currentStatus;
-    private MessageListener mMessageListener;
     private String TAG = "LoggedInActivity";
-    private Message mMessage;
     private final String[] statuses = {"Sanatos", "Autoizolat", "Diagnosticat"};
 
     @Override
@@ -31,16 +25,12 @@ public class LoggedInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in);
 
-        currentFamilyName = findViewById(R.id.textCurrentFamilyName);
-        currentSurname = findViewById(R.id.textCurrentSurname);
         currentStatus = findViewById(R.id.textCurrentStatus);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String strCurrentFamilyName = sharedPreferences.getString(getString(R.string.familyName), "None");
-        String strCurrentSurname = sharedPreferences.getString(getString(R.string.surname), "None");
-        String strCurrentStatus = sharedPreferences.getString(getString(R.string.status), "None");
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
+        currentStatus.setText(statuses[0]);
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void Success() {
@@ -52,12 +42,6 @@ public class LoggedInActivity extends AppCompatActivity {
                 Log.d(TAG, "Failed to save token");
             }
         });
-
-
-        currentFamilyName.setText(strCurrentFamilyName);
-        currentSurname.setText(strCurrentSurname);
-        currentStatus.setText(strCurrentStatus);
-
         currentStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

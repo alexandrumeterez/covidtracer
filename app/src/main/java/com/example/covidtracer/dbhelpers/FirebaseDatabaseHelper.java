@@ -2,6 +2,7 @@ package com.example.covidtracer.dbhelpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FirebaseDatabaseHelper {
+    private static final String TAG = "FirebaseDatabaseHelper";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static FirebaseDatabaseHelper firebaseDatabaseHelper = new FirebaseDatabaseHelper();
     private CollectionReference usersCollection, meetingsCollection;
@@ -48,6 +50,7 @@ public class FirebaseDatabaseHelper {
                         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(context.getString(R.string.UID), newUserRef.getId());
+                        Log.d(TAG, "Added: " + newUserRef.getId());
                         editor.commit();
                         status.Success();
                     }
