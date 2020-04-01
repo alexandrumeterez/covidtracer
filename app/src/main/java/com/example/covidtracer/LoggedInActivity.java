@@ -27,10 +27,12 @@ public class LoggedInActivity extends AppCompatActivity {
 
         currentStatus = findViewById(R.id.textCurrentStatus);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
         String token = sharedPreferences.getString(getString(R.string.token), "None");
-        currentStatus.setText(statuses[0]);
+        currentStatus.setText(sharedPreferences.getString(getString(R.string.status), "None"));
+        Log.d(TAG, currentStatus.getText().toString());
+
         FirebaseDatabaseHelper.getInstance().updateDeviceToken(strUserUID, token, new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void Success() {
@@ -49,13 +51,16 @@ public class LoggedInActivity extends AppCompatActivity {
                 builder.setTitle("Ce status aveti?");
                 builder.setItems(statuses, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, final int which) {
                         if (!currentStatus.getText().equals(statuses[which])) {
-                            currentStatus.setText(statuses[which]);
                             FirebaseDatabaseHelper.getInstance().updateUserStatus(strUserUID, statuses[which], new FirebaseDatabaseHelper.DataStatus() {
                                 @Override
                                 public void Success() {
                                     Toast.makeText(LoggedInActivity.this, "Updated status", Toast.LENGTH_LONG).show();
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString(getString(R.string.status), statuses[which]);
+                                    editor.commit();
+                                    currentStatus.setText(statuses[which]);
                                 }
 
                                 @Override
