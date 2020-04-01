@@ -15,22 +15,22 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_weight="2"
         android:orientation="vertical"
-        android:paddingTop="48dp"
-        android:paddingBottom="64dp">
+        android:padding="32dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/phone_desc"
             android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fieldPhoneNumber"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:hint="Telefon"
             android:inputType="phone"
 
@@ -53,21 +53,25 @@
             <Button
                 android:id="@+id/buttonStartVerification"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+                android:layout_height="56dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1.0"
+                app:cornerRadius="8dp"
                 android:text="Trimite" />
 
             <Button
                 android:id="@+id/buttonResend"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
+                app:cornerRadius="8dp"
                 android:text="Retrimite" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -77,7 +81,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:orientation="vertical">
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:padding="32dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -108,9 +114,9 @@
         <Button
             android:id="@+id/buttonVerifyPhone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:text="Trimite cod" />
+            android:layout_height="64dp"
+            android:text="Trimite cod"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 
 
