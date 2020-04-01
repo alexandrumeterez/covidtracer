@@ -27,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.concurrent.TimeUnit;
 
@@ -262,6 +264,25 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
         }
 
         if (user != null) {
+            FirebaseInstanceId.getInstance().getInstanceId()
+                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "getInstanceId failed", task.getException());
+                                return;
+                            }
+
+                            // Get new Instance ID token
+                            String token = task.getResult().getToken();
+                            Log.d(TAG, token);
+                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(getString(R.string.token), token);
+                            editor.commit();
+                        }
+                    });
+
             final String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
             final User newUser = new User(phoneNumber, "Sanatos");
             FirebaseDatabaseHelper.getInstance().addUser(newUser, this, new FirebaseDatabaseHelper.DataStatus() {
