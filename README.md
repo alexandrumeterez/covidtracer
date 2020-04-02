@@ -70,6 +70,12 @@ Important considerations: what to use as <b> user_id </b> to be unique? -> Ended
 After you sign in, you get an OTP token generated using Firebase Phone Auth (currently the phone number is hardcoded for Romanian prefixes, but this is easily changeable). After you login, the application starts a background service that constantly publishes and receives the Firestore Database UIDs, by using the Nearby Messages API from Google. When two devices are in close proximity (approximately 4-5m for Bluetooth + sonar, didn't test max distance since I can't go any further than my own home due to social distancing), their meetup is registered in Firestore.
 From the NumberPicker in the logged in screen, you can choose your current health status (again, text is in Romanian) and press the button. This updates your health status in the database. Using Firestore Cloud Messages, there is a JavaScript function that triggers when this update happens and sends a push notification to the users that you have interacted with. 
 
+![Main screen](photos/activity1.jpeg)
+
+![Register screen](photos/activity2.jpeg)
+
+![LoggedIn screen](photos/activity3.jpeg)
+
 ### Addendum
 I know that the code is horrible, hardcoded stuff everywhere, the design looks ugly. I coded this app in a few nights as a proof of concept, without any knowledge on Android whatsoever. I'll start working on a major overhaul soon, with a far better code design, as well as better looks. I decided to publish it simply because we are in a time of crisis and maybe some other developer can pick up on this and implement something useful to aid in ending COVID-19.
 
