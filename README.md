@@ -74,4 +74,4 @@ From the NumberPicker in the logged in screen, you can choose your current healt
 I know that the code is horrible, hardcoded stuff everywhere, the design looks ugly. I coded this app in a few nights as a proof of concept, without any knowledge on Android whatsoever. I'll start working on a major overhaul soon, with a far better code design, as well as better looks. I decided to publish it simply because we are in a time of crisis and maybe some other developer can pick up on this and implement something useful to aid in ending COVID-19.
 
 ### Setup
-Just follow the installation guide for Firestore. You also need to provide the API_KEY in the <b>gradle.properties</b> file, with the key API_KEY. 
+Just follow the installation guide for Firestore. You also need to provide the API_KEY in the <b>gradle.properties</b> file, with the key API_KEY for the Nearby Messages API (<b>API_KEY=apikeyexample</b>).
