@@ -25,9 +25,16 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".LoggedInActivity" />
-        <activity android:name=".PhoneRegisterActivity" />
-        <activity android:name=".DescriptionActivity" />
+        <activity
+            android:name=".LoggedInActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".PhoneRegisterActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".DescriptionActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+
         <activity android:name=".HelperActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

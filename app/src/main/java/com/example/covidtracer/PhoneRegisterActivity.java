@@ -209,6 +209,47 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
 
                             FirebaseUser user = task.getResult().getUser();
                             updateUI(STATE_SIGNIN_SUCCESS, user);
+                            FirebaseInstanceId.getInstance().getInstanceId()
+                                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                            if (!task.isSuccessful()) {
+                                                Log.w(TAG, "getInstanceId failed", task.getException());
+                                                return;
+                                            }
+
+                                            // Get new Instance ID token
+                                            String token = task.getResult().getToken();
+                                            Log.d(TAG, token);
+                                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString(getString(R.string.token), token);
+                                            editor.commit();
+                                        }
+                                    });
+
+                            final String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
+                            final User newUser = new User(phoneNumber, "Sanatos");
+                            FirebaseDatabaseHelper.getInstance().addUser(newUser, context, new FirebaseDatabaseHelper.DataStatus() {
+                                @Override
+                                public void Success() {
+                                    Log.d(TAG, "Added new user");
+                                    final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString(getString(R.string.phone), phoneNumber);
+                                    editor.putString(getString(R.string.status), "Sanatos");
+                                    editor.putBoolean(getString(R.string.registered), true);
+                                    editor.commit();
+                                    Intent intent = new Intent(context, LoggedInActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void Fail() {
+                                    Log.d(TAG, "Failed to add new user");
+                                }
+                            });
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -261,50 +302,6 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
                 enableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
                         mVerificationField);
                 break;
-        }
-
-        if (user != null) {
-            FirebaseInstanceId.getInstance().getInstanceId()
-                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                            if (!task.isSuccessful()) {
-                                Log.w(TAG, "getInstanceId failed", task.getException());
-                                return;
-                            }
-
-                            // Get new Instance ID token
-                            String token = task.getResult().getToken();
-                            Log.d(TAG, token);
-                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(getString(R.string.token), token);
-                            editor.commit();
-                        }
-                    });
-
-            final String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
-            final User newUser = new User(phoneNumber, "Sanatos");
-            FirebaseDatabaseHelper.getInstance().addUser(newUser, this, new FirebaseDatabaseHelper.DataStatus() {
-                @Override
-                public void Success() {
-                    Log.d(TAG, "Added new user");
-                    final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(getString(R.string.phone), phoneNumber);
-                    editor.putString(getString(R.string.status), "Sanatos");
-                    editor.putBoolean(getString(R.string.registered), true);
-                    editor.commit();
-                    Intent intent = new Intent(context, LoggedInActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void Fail() {
-                    Log.d(TAG, "Failed to add new user");
-                }
-            });
         }
     }
 
