@@ -39,19 +39,22 @@ public class DescriptionActivity extends AppCompatActivity {
     // function to check permissions
     private void checkPermission() {
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) ||
-                (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+                (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) ||
+                (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED)) {
             Log.d(TAG, "0");
 
             if (ActivityCompat.shouldShowRequestPermissionRationale
                     (this, Manifest.permission.INTERNET) &&
                     ActivityCompat.shouldShowRequestPermissionRationale
-                            (this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                            (this, Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            (this, Manifest.permission.BLUETOOTH)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     Log.d(TAG, "1");
 
                     requestPermissions(
                             new String[]{Manifest.permission
-                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION},
+                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH},
                             MULTIPLE_PERMISSIONS);
                 }
 
@@ -61,7 +64,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
                     requestPermissions(
                             new String[]{Manifest.permission
-                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION},
+                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH},
                             MULTIPLE_PERMISSIONS);
                 }
             }
@@ -82,7 +85,8 @@ public class DescriptionActivity extends AppCompatActivity {
                 Log.d(TAG, String.valueOf(internetPermission));
                 boolean accesFineLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                 Log.d(TAG, String.valueOf(accesFineLocationPermission));
-                if (internetPermission && accesFineLocationPermission) {
+                boolean bluetoothPermission = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                if (internetPermission && accesFineLocationPermission && bluetoothPermission) {
                     Log.d(TAG, "Starting intent");
                     Intent intent = new Intent(DescriptionActivity.this, PhoneRegisterActivity.class);
                     startActivity(intent);
@@ -91,7 +95,7 @@ public class DescriptionActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(
                             new String[]{Manifest.permission
-                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION},
+                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH},
                             MULTIPLE_PERMISSIONS);
                 }
             }
