@@ -11,6 +11,8 @@
     <string name="btn_finish">Finish</string>
     <string name="disclaimer">You can opt-in to share your data. Your data will only be accessed if you are ill</string>
     <string name="status">Status</string>
+    <string name="location">Location</string>
+    <string name="meeting">Meeting</string>
     <string name="preference_file_key">com.hackathon.covidtracer.PREFKEY</string>
     <string name="registered">registered</string>
     <string name="familyName">familyName</string>
