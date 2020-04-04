@@ -15,13 +15,13 @@ exports.sendPushNotification = functions.firestore
             ids = docs.map(doc => doc.id);
             return ids;
         }).then((ids)=>{
-            console.log(ids);
+            console.log("IDs: " + ids);
             return ids.forEach((e)=>{
                 let usersRef = admin.firestore().collection('users');
                 let documentRef = usersRef.doc(e);
                 return documentRef.get().then(s=>{
                     var token = s.data().token;
-                    console.log(token);
+                    console.log("token: " + token);
                     var message = {
                         data : {
                             oldStatus: change.before.data().status,

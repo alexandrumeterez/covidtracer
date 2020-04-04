@@ -156,7 +156,6 @@ public class FirebaseDatabaseHelper {
         Query query = usersCollection.whereEqualTo("users", metUserUID);
 
         meetToUpdate
-                .whereEqualTo("users", metUserUID)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
