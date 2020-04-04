@@ -1,4 +1,4 @@
-package com.example.covidtracer;
+package com.hackathon.covidtracer;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -6,15 +6,16 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -47,11 +48,20 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            sendNotification("Un om cu care ati interactionat si-a schimbat statusul din " +
-                    remoteMessage.getData().get("oldStatus").toLowerCase() +
-                    " in " +
+
+            Context context = getApplicationContext();
+            String message = String.format(getApplicationContext().getResources().getString(R.string.push_notification),
+                    remoteMessage.getData().get("oldStatus").toLowerCase(),
                     remoteMessage.getData().get("newStatus").toLowerCase());
 
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                public void run() {
+                    if (context != null)
+                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                }
+            });
+            sendNotification(message);
         }
     }
 
@@ -65,8 +75,8 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("Atentie")
-                        .setContentText("Schimbare status")
+                        .setContentTitle("Careful")
+                        .setContentText("Change status")
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(messageBody))
                         .setAutoCancel(true)
                         .setContentIntent(pendingIntent);
@@ -78,7 +88,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId,
                     "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
         }
 

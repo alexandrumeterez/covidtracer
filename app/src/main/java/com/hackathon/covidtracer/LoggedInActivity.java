@@ -1,4 +1,4 @@
-package com.example.covidtracer;
+package com.hackathon.covidtracer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +14,11 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 
 public class LoggedInActivity extends AppCompatActivity {
     private String TAG = "LoggedInActivity";
-    private final String[] statuses = {"Sanatos", "Autoizolat", "Diagnosticat"};
+    private final String[] statuses = {"Healthy", "Self-isolated", "Confirmed"};
     private NumberPicker picker;
     private Chronometer chronometer;
     private Button button;

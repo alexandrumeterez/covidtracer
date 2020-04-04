@@ -1,4 +1,4 @@
-package com.example.covidtracer;
+package com.hackathon.covidtracer;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -16,8 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
-import com.example.covidtracer.models.Meet;
+import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+import com.hackathon.covidtracer.models.Meet;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
@@ -103,7 +103,7 @@ public class NearbyTrackingService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Inregistrare persoane din apropiere")
+                .setContentTitle("Tracking of people nearby")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentIntent(pendingIntent)
                 .build();
