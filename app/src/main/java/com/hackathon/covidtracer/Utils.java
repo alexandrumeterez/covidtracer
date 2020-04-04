@@ -17,7 +17,7 @@ public class Utils {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         editor.putString(key, json);
-        editor.apply();     // This line is IMPORTANT !!!
+        editor.apply();
     }
 
     public static ArrayList<String> getArrayList(String key, Context context){

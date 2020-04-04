@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,9 +17,9 @@ import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 
 public class LoggedInActivity extends AppCompatActivity {
     private String TAG = "LoggedInActivity";
-    private final String[] statuses = {"Healthy", "Self-isolated", "Confirmed"};
+    private final String[] statuses = {"Healthy", "Sick"};
+    private final String[] statusDescription = {"I am healthy", "I have been diagnosed with COVID-19"};
     private NumberPicker picker;
-    private Chronometer chronometer;
     private Button button;
     private ProgressBar progressBar;
 
@@ -30,12 +29,11 @@ public class LoggedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in);
 
         picker = findViewById(R.id.pickerHealthStatus);
-        chronometer = findViewById(R.id.chronometer);
         button = findViewById(R.id.btnUpdateHealthStatus);
         progressBar = findViewById(R.id.progressBar);
         picker.setMinValue(0);
         picker.setMaxValue(statuses.length - 1);
-        picker.setDisplayedValues(statuses);
+        picker.setDisplayedValues(statusDescription);
 
         final SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final String strUserUID = sharedPreferences.getString(getString(R.string.UID), "None");
@@ -98,7 +96,6 @@ public class LoggedInActivity extends AppCompatActivity {
 
         startService(new Intent(this, NearbyTrackingService.class));
         startService(new Intent(this, CustomFirebaseMessagingService.class));
-        chronometer.start();
     }
 
     @Override
@@ -106,6 +103,5 @@ public class LoggedInActivity extends AppCompatActivity {
         super.onDestroy();
         stopService(new Intent(this, NearbyTrackingService.class));
         stopService(new Intent(this, CustomFirebaseMessagingService.class));
-        chronometer.stop();
     }
 }
