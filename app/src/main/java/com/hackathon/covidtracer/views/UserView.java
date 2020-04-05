@@ -1,8 +1,6 @@
-package com.example.covidtracer.views;
+package com.hackathon.covidtracer.views;
 
-import android.util.Log;
-
-import com.example.covidtracer.models.User;
+import com.hackathon.covidtracer.models.User;
 
 public class UserView {
     public static void printUser(User user) {

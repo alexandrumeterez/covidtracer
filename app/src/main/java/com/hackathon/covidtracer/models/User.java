@@ -1,4 +1,4 @@
-package com.example.covidtracer.models;
+package com.hackathon.covidtracer.models;
 
 public class User {
     public String phone;

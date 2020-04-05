@@ -1,15 +1,22 @@
-package com.example.covidtracer.dbhelpers;
+package com.hackathon.covidtracer.dbhelpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.example.covidtracer.LoggedInActivity;
-import com.example.covidtracer.R;
-import com.example.covidtracer.models.Meet;
-import com.example.covidtracer.models.User;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.hackathon.covidtracer.R;
+import com.hackathon.covidtracer.models.Meet;
+import com.hackathon.covidtracer.models.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -58,6 +65,11 @@ public class FirebaseDatabaseHelper {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        status.Fail();
+                    }
+                }).addOnCanceledListener(new OnCanceledListener() {
+                    @Override
+                    public void onCanceled() {
                         status.Fail();
                     }
                 });
@@ -136,5 +148,28 @@ public class FirebaseDatabaseHelper {
                     }
                 });
 
+    }
+
+    public void getEncounteredUserInfo(String myUserID, String metUserUID) {
+
+        DocumentReference meetToUpdate = meetingsCollection.document(myUserID).collection("meetings").document(metUserUID);
+        Query query = usersCollection.whereEqualTo("users", metUserUID);
+
+        meetToUpdate
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 }
