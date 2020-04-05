@@ -19,6 +19,8 @@ import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import static com.hackathon.covidtracer.Utils.readFromStorage;
+
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "CustomFMService";
 
@@ -50,6 +52,8 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             Log.d(TAG, "id: " + remoteMessage.getData().get("id"));
 
+            String metUserID = remoteMessage.getData().get("id");
+
             Context context = getApplicationContext();
             String message = String.format(getApplicationContext().getResources().getString(R.string.push_notification),
                     remoteMessage.getData().get("oldStatus").toLowerCase(),
@@ -62,15 +66,25 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
                         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 }
             });
-            sendNotification(message);
+
+            //sendNotification(message);
+
+            String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserID;
+
+            String date = readFromStorage(filePath, "date.txt");
+            Integer duration = readFromStorage(filePath, "duration.txt") != null ? Integer.parseInt(readFromStorage(filePath, "duration.txt")) : -1;
+
+            Float latitude = readFromStorage(filePath, "latitude.txt") != null ? Float.parseFloat(readFromStorage(filePath, "latitude.txt")) : -1;
+            Float longitude = readFromStorage(filePath, "longitude.txt") != null ? Float.parseFloat(readFromStorage(filePath, "longitude.txt")) : -1;
 
             Intent dialogIntent = new Intent(this, MeetingActivity.class);
-            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            dialogIntent.putExtra("MET_USER_ID", remoteMessage.getData().get("id"));
-
-            //TODO: Get duration / location of contact from local storage / sharedpreferences
-            //dialogIntent.putExtra("DURATION", remoteMessage.getData().get("id"));
+            dialogIntent.putExtra("DATE", date);
+            dialogIntent.putExtra("MET_USER_ID", metUserID);
+            dialogIntent.putExtra("DURATION", duration);
+            dialogIntent.putExtra("LATITUDE", latitude);
+            dialogIntent.putExtra("LONGITUDE", longitude);
             startActivity(dialogIntent);
         }
     }

@@ -50,9 +50,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.hackathon.covidtracer.MeetingActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

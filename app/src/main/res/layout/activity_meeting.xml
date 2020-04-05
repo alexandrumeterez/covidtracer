@@ -4,42 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".MeetingActivity">
 
         <TextView
-            android:id="@+id/meetingExplanation"
+            android:id="@+id/meetingDate"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="54dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="40dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/meeting_explanation"
-            android:textSize="14sp" />
+            android:text="@string/meeting_date"
+            android:textSize="18sp" />
 
-        <fragment
-            android:id="@+id/map"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:padding="100dp" />
+        <TextView
+            android:id="@+id/meetingLocation"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/meeting_location"
+            android:textSize="18sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:cardCornerRadius="100dp">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MapsActivity" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/meetingDuration"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="54dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="40dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/meeting_duration"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/meetingExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/meeting_explanation"
             android:textSize="14sp" />
 
     </LinearLayout>
