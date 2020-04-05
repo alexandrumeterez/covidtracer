@@ -11,9 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+
+import org.w3c.dom.Text;
 
 public class LoggedInActivity extends AppCompatActivity {
     private String TAG = "LoggedInActivity";
@@ -22,6 +25,7 @@ public class LoggedInActivity extends AppCompatActivity {
     private NumberPicker picker;
     private Button button;
     private ProgressBar progressBar;
+    private TextView textTracking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class LoggedInActivity extends AppCompatActivity {
         picker = findViewById(R.id.pickerHealthStatus);
         button = findViewById(R.id.btnUpdateHealthStatus);
         progressBar = findViewById(R.id.progressBar);
+        textTracking = findViewById(R.id.textTracking);
         picker.setMinValue(0);
         picker.setMaxValue(statuses.length - 1);
         picker.setDisplayedValues(statusDescription);
@@ -74,6 +79,7 @@ public class LoggedInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
+                textTracking.setVisibility(View.GONE);
                 FirebaseDatabaseHelper.getInstance().updateUserStatus(strUserUID, statuses[picker.getValue()], new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void Success() {
@@ -82,13 +88,15 @@ public class LoggedInActivity extends AppCompatActivity {
                         editor.putString(getString(R.string.status), statuses[picker.getValue()]);
                         editor.commit();
                         button.setEnabled(false);
-                        progressBar.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                        textTracking.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void Fail() {
                         Toast.makeText(LoggedInActivity.this, "Failed to update status", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                        textTracking.setVisibility(View.VISIBLE);
                     }
                 });
             }

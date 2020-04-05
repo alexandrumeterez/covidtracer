@@ -15,24 +15,35 @@
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifImageView"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="242dp"
+            android:layout_marginLeft="40dp"
             android:scaleType="centerInside"
             android:src="@drawable/security" />
 
         <NumberPicker
             android:id="@+id/pickerHealthStatus"
+            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="130dp"
             android:layout_weight="1"
-            android:padding="20dp"
+            android:padding="40dp"
 
             />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="94dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textTracking"
             android:layout_width="match_parent"
             android:layout_height="78dp"
             android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -53,13 +64,6 @@
                 android:text="Submit"
                 app:cornerRadius="8dp" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
