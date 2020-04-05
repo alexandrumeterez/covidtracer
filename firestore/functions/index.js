@@ -24,6 +24,7 @@ exports.sendPushNotification = functions.firestore
                     console.log("token: " + token);
                     var message = {
                         data : {
+                            id: userID,
                             oldStatus: change.before.data().status,
                             newStatus: change.after.data().status
                         },
