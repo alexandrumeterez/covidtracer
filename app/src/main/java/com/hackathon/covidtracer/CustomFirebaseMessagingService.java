@@ -48,6 +48,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Log.d(TAG, "id: " + remoteMessage.getData().get("id"));
 
             Context context = getApplicationContext();
             String message = String.format(getApplicationContext().getResources().getString(R.string.push_notification),
@@ -62,6 +63,15 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
                 }
             });
             sendNotification(message);
+
+            Intent dialogIntent = new Intent(this, MeetingActivity.class);
+            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            dialogIntent.putExtra("MET_USER_ID", remoteMessage.getData().get("id"));
+
+            //TODO: Get duration / location of contact from local storage / sharedpreferences
+            //dialogIntent.putExtra("DURATION", remoteMessage.getData().get("id"));
+            startActivity(dialogIntent);
         }
     }
 
