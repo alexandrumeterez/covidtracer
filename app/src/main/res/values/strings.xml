@@ -1,17 +1,28 @@
 <resources>
     <string name="app_name">CovidTracer</string>
-    <string name="app_description">Cu totii dorim sa ne intoarcem la viata noastra de zi cu zi. Lasand aceasta aplicatie sa ruleze pe fundal,
-    veti putea afla momentul in care ati intrat in contact cu cineva bolnav, putand astfel sa luati masuri.</string>
-    <string name="btn_register">Inregistrare</string>
-    <string name="edit_surname">Prenume</string>
-    <string name="edit_family_name">Nume</string>
+    <string name="app_description">By letting this application run in the background,
+    you will be able to find out when you came in contact with someone who is sick.</string>
+    <string name="explanation">Here you can anonomously update your health status. You will be notified if another user
+    who has been near you has contracted COVID-19</string>
+    <string name="meeting_explanation">Someone whom you were in close proximity with has updated their health status.
+        Here you find information about the location, duration and date of the interaction</string>
+    <string name="meeting_date">Date: \n  %1$s</string>
+    <string name="meeting_duration">Duration of contact: \n  %1$s</string>
+    <string name="meeting_location">Location</string>
+    <string name="health_title">Updated health status</string>
+    <string name="health_status">%1$s</string>
+    <string name="btn_register">Register</string>
+    <string name="edit_surname">Surname</string>
+    <string name="edit_family_name">First Name</string>
     <string name="edit_email">Email</string>
     <string name="edit_phone">Telefon</string>
-    <string name="btn_next">Continua</string>
-    <string name="btn_finish">Finalizare</string>
-    <string name="disclaimer">Datele dumnevoastra vor fi accesate numai in cazul in care sunteti raportat bolnav</string>
+    <string name="btn_next">Continue</string>
+    <string name="btn_finish">Finish</string>
+    <string name="disclaimer">You can opt-in to share your data. Your data will only be accessed if you are ill</string>
     <string name="status">Status</string>
-    <string name="preference_file_key">com.example.myapp.PREFKEY</string>
+    <string name="location">Location</string>
+    <string name="meeting">Meeting</string>
+    <string name="preference_file_key">com.hackathon.covidtracer.PREFKEY</string>
     <string name="registered">registered</string>
     <string name="familyName">familyName</string>
     <string name="surname">surname</string>
@@ -20,9 +31,10 @@
     <string name="UID">UID</string>
     <string name="token">token</string>
     <string name="default_notification_channel_id">MYCHANNEL</string>
-    <string name="text_permissions">Inregistrandu-va, va dati acordul pentru:</string>
-    <string name="text_permissions_1">Monitorizarea si stocarea persoanelor cu care intrati in contact (identitatea ramane necunoscuta)</string>
-    <string name="text_permissions_2">Stocarea numarului de telefon</string>
-    <string name="phone_desc">Introduceti numarul de telefon. Veti primi prin SMS un cod unic, pe care va trebui sa il introduceti in casuta de mai jos:</string>
-    <string name="code_desc">Introduceti codul primit prin SMS:</string>
+    <string name="text_permissions">By signing up, you will agree to:</string>
+    <string name="text_permissions_1">Monitoring and storing the people you come into contact with (identity remains unknown)</string>
+    <string name="text_permissions_2">Storage of your phone number</string>
+    <string name="phone_desc">Enter the phone number. You will receive a unique code by SMS, which you will have to enter in the box below:</string>
+    <string name="code_desc">Enter the code received by SMS:</string>
+    <string name="push_notification">Covid Tracer: Someone you interacted with changed his status from:  %1$s to %2$s</string>
 </resources>
