@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MeetingActivity">
+
+        <TextView
+            android:id="@+id/meetingExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/meeting_explanation"
+            android:textSize="14sp" />
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:padding="100dp" />
+
+        <TextView
+            android:id="@+id/meetingDuration"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/meeting_duration"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</ScrollView>
