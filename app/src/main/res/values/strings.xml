@@ -9,6 +9,8 @@
     <string name="meeting_date">Date: \n  %1$s</string>
     <string name="meeting_duration">Duration of contact: \n  %1$s</string>
     <string name="meeting_location">Location</string>
+    <string name="health_title">Updated health status</string>
+    <string name="health_status">%1$s</string>
     <string name="btn_register">Register</string>
     <string name="edit_surname">Surname</string>
     <string name="edit_family_name">First Name</string>

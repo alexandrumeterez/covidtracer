@@ -12,16 +12,28 @@
         tools:context=".MeetingActivity">
 
         <TextView
-            android:id="@+id/meetingDate"
+            android:id="@+id/healthTitle"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center_horizontal"
+            android:text="@string/health_title"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/healthStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/meeting_date"
+            android:text="@string/health_status"
             android:textSize="18sp" />
 
         <TextView
@@ -31,7 +43,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="40dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/meeting_location"
@@ -53,11 +65,24 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/meetingDuration"
+            android:id="@+id/meetingDate"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/meeting_date"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/meetingDuration"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
@@ -70,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"

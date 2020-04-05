@@ -59,14 +59,6 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
                     remoteMessage.getData().get("oldStatus").toLowerCase(),
                     remoteMessage.getData().get("newStatus").toLowerCase());
 
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                public void run() {
-                    if (context != null)
-                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                }
-            });
-
             //sendNotification(message);
 
             String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserID;
@@ -85,6 +77,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
             dialogIntent.putExtra("DURATION", duration);
             dialogIntent.putExtra("LATITUDE", latitude);
             dialogIntent.putExtra("LONGITUDE", longitude);
+            dialogIntent.putExtra("HEALTH_STATUS", remoteMessage.getData().get("newStatus"));
             startActivity(dialogIntent);
         }
     }

@@ -1,8 +1,16 @@
 package com.hackathon.covidtracer;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,7 +24,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Utils {
+    private static final String TAG = "Utils";
     private final static int READ_BLOCK_SIZE = 8192;
+    public static final int MULTIPLE_PERMISSIONS = 100;
 
     public static void saveArrayList(Context context, String key, ArrayList<String> list){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -83,6 +93,41 @@ public class Utils {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void checkPermission(Activity activity) {
+        if ((ContextCompat.checkSelfPermission(activity, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) ||
+                (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) ||
+                (ContextCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED)) {
+
+            Log.d(TAG, "0");
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale
+                    (activity, Manifest.permission.INTERNET) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            (activity, Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            (activity, Manifest.permission.BLUETOOTH)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Log.d(TAG, "1");
+
+                    activity.requestPermissions(
+                            new String[]{Manifest.permission
+                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH},
+                            MULTIPLE_PERMISSIONS);
+                }
+
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Log.d(TAG, "2");
+
+                    activity.requestPermissions(
+                            new String[]{Manifest.permission
+                                    .INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH},
+                            MULTIPLE_PERMISSIONS);
+                }
+            }
         }
     }
 }
