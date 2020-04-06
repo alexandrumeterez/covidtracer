@@ -17,3 +17,4 @@ gradle.properties
 node_modules/
 key.json
 release/
+app/src/main/res/values/google_maps_api.xml

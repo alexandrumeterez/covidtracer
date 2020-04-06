@@ -1,4 +1,4 @@
-package com.example.covidtracer;
+package com.hackathon.covidtracer;
 
 import android.content.Context;
 
