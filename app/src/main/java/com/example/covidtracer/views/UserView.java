@@ -1,6 +1,6 @@
-package com.hackathon.covidtracer.views;
+package com.example.covidtracer.views;
 
-import com.hackathon.covidtracer.models.User;
+import com.example.covidtracer.models.User;
 
 public class UserView {
     public static void printUser(User user) {

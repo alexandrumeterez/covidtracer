@@ -1,4 +1,4 @@
-package com.hackathon.covidtracer;
+package com.example.covidtracer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;

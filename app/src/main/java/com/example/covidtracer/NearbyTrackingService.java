@@ -1,4 +1,4 @@
-package com.hackathon.covidtracer;
+package com.example.covidtracer;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -11,8 +11,6 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,24 +18,21 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
+
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
-import com.hackathon.covidtracer.models.Meet;
+import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+import com.example.covidtracer.models.Meet;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 import com.google.firebase.firestore.FieldValue;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.hackathon.covidtracer.Utils.writeToStorage;
+import static com.example.covidtracer.Utils.writeToStorage;
 
 public class NearbyTrackingService extends Service {
     private final String TAG = "MessageService";

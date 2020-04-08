@@ -1,4 +1,4 @@
-package com.hackathon.covidtracer;
+package com.example.covidtracer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,9 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
-
-import org.w3c.dom.Text;
+import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 
 public class LoggedInActivity extends AppCompatActivity {
     private String TAG = "LoggedInActivity";

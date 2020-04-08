@@ -1,4 +1,4 @@
-package com.hackathon.covidtracer.models;
+package com.example.covidtracer.models;
 
 import com.google.firebase.firestore.FieldValue;
 

@@ -78,19 +78,6 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/meetingDuration"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/meeting_duration"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/meetingExplanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

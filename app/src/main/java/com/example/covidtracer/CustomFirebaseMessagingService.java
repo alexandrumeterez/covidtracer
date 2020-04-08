@@ -1,4 +1,4 @@
-package com.hackathon.covidtracer;
+package com.example.covidtracer;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -7,19 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import static com.hackathon.covidtracer.Utils.readFromStorage;
+import static com.example.covidtracer.Utils.readFromStorage;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "CustomFMService";
@@ -59,7 +56,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
                     remoteMessage.getData().get("oldStatus").toLowerCase(),
                     remoteMessage.getData().get("newStatus").toLowerCase());
 
-            //sendNotification(message);
+            sendNotification(message);
 
             String filePath = getApplicationContext().getFilesDir().toString() + "/meetings" + "/" + metUserID;
 
@@ -70,7 +67,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
             Float longitude = readFromStorage(filePath, "longitude.txt") != null ? Float.parseFloat(readFromStorage(filePath, "longitude.txt")) : -1;
 
             Intent dialogIntent = new Intent(this, MeetingActivity.class);
-            //dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             dialogIntent.putExtra("DATE", date);
             dialogIntent.putExtra("MET_USER_ID", metUserID);
@@ -78,6 +75,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
             dialogIntent.putExtra("LATITUDE", latitude);
             dialogIntent.putExtra("LONGITUDE", longitude);
             dialogIntent.putExtra("HEALTH_STATUS", remoteMessage.getData().get("newStatus"));
+
             startActivity(dialogIntent);
         }
     }

@@ -1,11 +1,8 @@
-package com.hackathon.covidtracer;
+package com.example.covidtracer;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -22,8 +19,6 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Date;
-
 public class MeetingActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private LatLng coordinates;
@@ -35,7 +30,6 @@ public class MeetingActivity extends FragmentActivity implements OnMapReadyCallb
 
 
         String metUserID = getIntent().getStringExtra("MET_USER_ID");
-        int duration = getIntent().getIntExtra("DURATION", -1);
 
         Float latitude = getIntent().getFloatExtra("LATITUDE", 59.331264f);
         Float longitude = getIntent().getFloatExtra("LONGITUDE", 18.064854f);
@@ -45,14 +39,10 @@ public class MeetingActivity extends FragmentActivity implements OnMapReadyCallb
         String healthStatus = getIntent().getStringExtra("HEALTH_STATUS");
 
         TextView meetingDateView = findViewById(R.id.meetingDate);
-        TextView meetingDurationView = findViewById(R.id.meetingDuration);
         TextView healthStatusView = findViewById(R.id.healthStatus);
 
         meetingDateView.setText(String.format(getApplicationContext().getResources().getString(R.string.meeting_date),
                 date));
-
-        meetingDurationView.setText(String.format(getApplicationContext().getResources().getString(R.string.meeting_duration),
-               String.valueOf((int)(duration / 1000f)) + " seconds"));
 
         int textColor = Color.GRAY;
 

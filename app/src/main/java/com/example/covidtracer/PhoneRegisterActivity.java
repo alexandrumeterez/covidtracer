@@ -1,4 +1,4 @@
-package com.hackathon.covidtracer;
+package com.example.covidtracer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.hackathon.covidtracer.dbhelpers.FirebaseDatabaseHelper;
-import com.hackathon.covidtracer.models.User;
+import com.example.covidtracer.dbhelpers.FirebaseDatabaseHelper;
+import com.example.covidtracer.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -152,7 +152,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
         updateUI(currentUser);
 
         if (mVerificationInProgress && validatePhoneNumber()) {
-            startPhoneNumberVerification("+46" + mPhoneNumberField.getEditText().getText().toString());
+            startPhoneNumberVerification("+40" + mPhoneNumberField.getEditText().getText().toString());
         }
     }
 
@@ -227,7 +227,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
                                         }
                                     });
 
-                            final String phoneNumber = "+46" + mPhoneNumberField.getEditText().getText().toString();
+                            final String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
                             final User newUser = new User(phoneNumber, "Healthy");
                             FirebaseDatabaseHelper.getInstance().addUser(newUser, context, new FirebaseDatabaseHelper.DataStatus() {
                                 @Override
@@ -306,7 +306,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
 
     private boolean validatePhoneNumber() {
 
-        String phoneNumber = "+46" + mPhoneNumberField.getEditText().getText().toString();
+        String phoneNumber = "+40" + mPhoneNumberField.getEditText().getText().toString();
         if (TextUtils.isEmpty(phoneNumber)) {
             mPhoneNumberField.setError("Invalid phone number.");
             return false;
@@ -334,7 +334,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
                 if (!validatePhoneNumber()) {
                     return;
                 }
-                startPhoneNumberVerification("+46" + mPhoneNumberField.getEditText().getText().toString());
+                startPhoneNumberVerification("+40" + mPhoneNumberField.getEditText().getText().toString());
                 break;
             case R.id.buttonVerifyPhone:
                 String code = mVerificationField.getEditText().getText().toString();
@@ -345,7 +345,7 @@ public class PhoneRegisterActivity extends AppCompatActivity implements
                 verifyPhoneNumberWithCode(mVerificationId, code);
                 break;
             case R.id.buttonResend:
-                resendVerificationCode("+46" + mPhoneNumberField.getEditText().getText().toString(), mResendToken);
+                resendVerificationCode("+40" + mPhoneNumberField.getEditText().getText().toString(), mResendToken);
                 break;
         }
     }

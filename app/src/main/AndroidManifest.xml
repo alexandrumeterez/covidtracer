@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hackathon.covidtracer">
+    package="com.example.covidtracer">
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
 
@@ -23,10 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name="com.hackathon.covidtracer.NearbyTrackingService"
+            android:name="com.example.covidtracer.NearbyTrackingService"
             android:enabled="true" />
         <service
-            android:name="com.hackathon.covidtracer.CustomFirebaseMessagingService"
+            android:name="com.example.covidtracer.CustomFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -34,16 +34,16 @@
         </service>
 
         <activity
-            android:name="com.hackathon.covidtracer.LoggedInActivity"
+            android:name="com.example.covidtracer.LoggedInActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
-            android:name="com.hackathon.covidtracer.PhoneRegisterActivity"
+            android:name="com.example.covidtracer.PhoneRegisterActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
-            android:name="com.hackathon.covidtracer.DescriptionActivity"
+            android:name="com.example.covidtracer.DescriptionActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
-        <activity android:name="com.hackathon.covidtracer.HelperActivity">
+        <activity android:name="com.example.covidtracer.HelperActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,18 +52,15 @@
         </activity>
 
         <activity
-            android:name="com.hackathon.covidtracer.MeetingActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-        </activity>
+            android:name="com.example.covidtracer.MeetingActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="@string/google_maps_key"/>
-
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_api_key" />
     </application>
 
 </manifest>

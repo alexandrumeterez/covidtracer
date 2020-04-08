@@ -4,8 +4,7 @@
     you will be able to find out when you came in contact with someone who is sick.</string>
     <string name="explanation">Here you can anonomously update your health status. You will be notified if another user
     who has been near you has contracted COVID-19</string>
-    <string name="meeting_explanation">Someone whom you were in close proximity with has updated their health status.
-        Here you find information about the location, duration and date of the interaction</string>
+    <string name="meeting_explanation">Someone whom you were in close proximity with has updated their health status.</string>
     <string name="meeting_date">Date: \n  %1$s</string>
     <string name="meeting_duration">Duration of contact: \n  %1$s</string>
     <string name="meeting_location">Location</string>
